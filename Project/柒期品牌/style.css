@@ -1,0 +1,248 @@
+/*设置root rem*/
+html {
+    font-size: 62.5%;
+}
+/*基础设置*/
+
+/*布局*/
+.left_layout {
+    float: left;
+    width: 680px;
+}
+
+.top {
+    height: 40px;
+    font-size: 18px;
+    text-align: center;
+    line-height: 40px;
+    background-color: #b8b8b8;
+}
+
+/*Header*/
+header {
+    width: 1900px;
+    height: 144px;
+    border: solid 1px #b8b8b8; 
+}
+
+.logo{
+    margin-left: 410px;
+    margin-top: 34px;
+}
+.search {
+    margin-left: 88px;
+    border: 2px solid #b8b8b8;
+    width: 392px;
+    height: 50px;
+    font-size: 1rem;
+    margin-top: 34px;
+    margin-right: 0px;
+}
+.sou {
+    font-size: 30px;
+    display: inline-block;
+    padding: 5px 16px 10px 16px;
+    background-color: black;
+    color: white;
+    box-sizing: content-box;
+    margin-left: 0px;
+}
+.or {
+    display: inline-block;
+    margin-left: 2.8rem;
+    font-size: 1.6rem;
+    color:  #b8b8b8;
+}
+.hot_search {
+    font-size: 1rem;
+    margin-top: 6px;
+    padding-left: 766px;
+    color:  #b8b8b8;
+}
+.wt_design {
+    font-size: 30px;
+    display: inline-block;
+    background-color: #ff0080;
+    color: white;
+    margin-left: 36px;
+    padding: 24px;
+    text-decoration: none;
+}
+.banner>img {
+    width: 100%;
+}
+
+section>a {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.intro {
+    position: relative;
+    height: 170px;
+    border-bottom: solid 1px #b8b8b8;
+}
+.intro>p{
+    font-size: 16px;
+    color: #b8b8b8;
+    width: 56%;
+    height: 40px;
+    margin: auto;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+}
+#ppt {
+    text-decoration: none;
+    color: #ff0076;
+}
+
+/*client*/
+.client {
+    background-color: #efefef;
+    padding: 58px;
+}
+.cli_logo_top {
+    margin: 26px 20px;
+    font-size: 18px;
+    line-height: 20px;
+    /*border: solid 1px #a0a0a0;*/
+}
+.cli_logo {
+    margin-top: 50px;
+    margin-left: 410px;
+    width: 1300px;
+}
+.cli_logo_img>a{
+    width: 200px;
+    height: 178px;
+}
+.cli_logo_top>span:nth-child(2){
+    color: #ff0076;
+}
+/*bottom*/
+.bottom{
+    width: 100%;
+    height: 144px;
+    border: 2px solid #b8b8b8;
+}
+.bottom>p:nth-child(1){
+    margin-left: 410px !important;
+}
+.bottom>p:nth-child(odd) {
+    display: inline-block;
+    font-size: 3.2rem;
+    margin-left: 80px;
+}
+.bottom>p:nth-child(even) {
+    display: inline-block;
+    font-size: 1.6rem;
+    margin-top: 68px;
+    margin-bottom: 60px;
+    margin-left: 20px;
+}
+/*footer*/
+.ab_bc {
+    height: 340px;
+    background-color: #efefef;
+    font-size: 20px;
+}
+.ab_bc_ti {
+    font-size: 1rem;
+    padding: 50px 410px;
+}
+.ab_bc_intr {
+    padding:1px 48px 50px 410px;
+    width: 520px;
+    height: 180px;
+}
+.ab_bc {
+    position: relative;
+}
+.sao>li {
+    display: inline-block;
+    position: relative;
+    left: 920px;
+    top: -260px;
+    margin-left: 30px;
+    font-weight: bold;
+}
+#zj {
+    display: inline-block;
+    position: absolute;
+    left: 920px;
+    top: 130px;
+    margin-left: 50px;
+}
+#gw {
+    display: inline-block;
+    position: absolute;
+    left: 1140px;
+    top: 130px;
+    margin-left: 50px;
+}
+#case {
+    display: inline-block;
+    position: absolute;
+    left: 1380px;
+    top: 130px;
+    margin-left: 50px;
+}
+.nav_bottom {
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    background-color: #d3d3d3;
+    top: 20px;
+}
+footer {
+    height: 62px;
+    background-color: black;
+    color: #ff0079;
+    
+}
+.footer_con {
+    text-align: center;
+    line-height: 62px;
+    position: relative;
+}
+#bjzm {
+    font-size: 32px;
+    color: #ff0079;
+    display: inline-block;
+}
+#bjgs {
+    color: #ff0079;
+    display: inline-block;
+    margin-left: 24px;
+}
+#ppgw {
+    color: white;
+    display: inline-block;
+    position: relative;
+    top: -8px;
+    left: 74px;
+}
+#zxrx {
+    color: white;
+    display: inline-block;
+    margin-left: 24px;
+    position: relative;
+    top: 10px;
+}
+#mobi {
+    color: #ff0079;
+    display: inline-block;
+    margin-left: 24px;
+    font-size: 2rem;
+}
+#query {
+    color: white;
+    background-color: #ff0079;
+    font-size: 2rem;
+    padding:0px 20px;
+    border: 0px;
+    margin-left: 32px;
+    display: inline-block;
+    text-decoration: none;
+}
+

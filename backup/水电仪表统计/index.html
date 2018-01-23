@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="./style.css">
+	<link rel="stylesheet" href="./layui/src/css/layui.css">
+</head>
+<body>
+  
+  	<div class="layui-row header">
+    	<div class="layui-col-md4">
+	      	<div class="grid-demo grid-demo-bg1">
+				<p id="water-ele">水电仪表统计</p> 	
+	      		<div class="cur_mon">本月</div>
+	      		<div class="lst_mon">上月</div>
+	      		<div class="near_3mons">最近3个月</div>
+	      		<div class="near_6mons">最近6个月</div>
+	        </div>
+    	</div>
+
+    	<div class="layui-col-md4">
+        <div class="layui-inline">
+      		<label class="layui-form-label">年月范围</label>
+      		<div class="layui-input-inline">
+        	<input class="layui-input" id="test8" placeholder=" - " type="text">
+        </div>
+    	</div>
+    	</div>
+
+    	<div class="layui-col-md4">
+        <div class="grid-demo grid-demo-bg1">
+      		<div class="day">按日</div>
+	      	<div class="week">按周</div>
+	      	<div class="month">按月</div>
+	      	<div class="refresh"><i class="layui-icon">&#x1002;</i> </div>
+        </div>
+    	</div>
+    </div>
+
+	<div class="layui-row">
+	    <div class="layui-col-xs6">
+	        <div class="grid-demo grid-demo-bg1">
+				<div class="ele-data">
+    				电表数据
+    			</div>
+    			<div class="total_deg">总量(度)</div>
+    			<div class="ele_mom">环比</div>
+    			<div class="ele_avg">平均用量</div>
+	        </div>
+	    </div>
+
+	    <div class="layui-col-xs6">
+	      	<div class="grid-demo">
+				<div class="wat-data">
+    				水表数据
+    			</div>
+    			<div class="total_sq">总量(方)</div>
+    			<div class="wat_mom">环比</div>
+    			<div class="wat_avg">平均用量</div>
+	      	</div>
+	    </div>
+  	</div>
+
+    
+
+    
+
+
+    <script src="./layui/src/layui.js"></script>
+<script>
+layui.use('laydate', function(){
+  var laydate = layui.laydate;
+  
+  //执行一个laydate实例
+  laydate.render({
+    elem: '#test8' //指定元素
+  });
+});
+</script>
+</body>
+</html>
