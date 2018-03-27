@@ -3,23 +3,26 @@
 namespace app\modules\controllers;
 
 use Yii;
-use yii\web\Controller;
-use yii\data\Pagination;
 use app\models\User;
 use app\models\Profile;
 use app\modules\controllers\CommonController;
+use yii\web\Controller;
+use yii\data\Pagination;
 
 class UserController extends CommonController
 {
 	protected $mustlogin = ['users', 'reg', 'del'];
+
 	public function actionUsers()
 	{
 		$model = User::find()->joinWith('profile');
+		// yii\db\ActiveQuery::joinWith() 和 yii\db\ActiveQuery::with() 的区别是 前者连接主模型类和关联模型类的数据表来检索主模型， 而后者只查询和检索主模型类。 检索主模型
+		// \yii\db\with(): list of relations that this query should be performed with.
+		// joinWith(): reuse a relation query definition to add a join to a query.
 		$count = $model->count();
 		$pageSize = Yii::$app->params['pageSize']['user'];
 		$pager = new Pagination(['totalCount' => $count, 'pageSize' => $pageSize]);
-		// 比如，如果你正在从数据库取回数据， 你可以使用分页对象提供的对应值来指定 DB 查询语句中的 OFFSET 和 LIMIT 子句。
-		$users = $model->offset($pager->offset)->limit($pager->limit)->all();
+		$users = $model->offet($pager->offset)->limit($pager->limit)->all();
 		$this->layout = "layout1";
 		return $this->render('users', ['users' => $users, 'pager' => $pager]);
 	}
@@ -48,12 +51,12 @@ class UserController extends CommonController
 			}
 			$trans = Yii::$app->db->beginTransaction();
 			if ($obj = Profile::find()->where('userid = :id', [':id' => $userid])->one()) {
-				$res = Profile::deleteAll('userid = :id', [':id' => $userid]);
+				$res = Profile::delete('userid = :id', [':id' => $userid]);
 				if (empty($res)) {
 					throw new \Exception();
 				}
 			}
-			if (!User::deleteAll('userid = :id', [':id' => $userid])) {
+			if (!User::delete('userid = :id', [':id' => $userid])) {
 				throw new \Exception();
 			}
 			$trans->commit();

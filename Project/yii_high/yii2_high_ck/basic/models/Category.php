@@ -2,22 +2,20 @@
 
 namespace app\models;
 
-use yii\db\ActiveRecord;
 use Yii;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 use yii\behaviors\BlameableBehavior;
 
 class Category extends ActiveRecord
 {
-	/**
-     * BlameableBehavior：
-     * 创建的时候，默认插入当前用户ID给admin_id字段
-     * 更新的时候，默认更新当前用户ID给updater_id字段为null
-     */
 	public function behaviors()
 	{
 		return [
 			[
+				// BlameableBehavior automatically fills the specified attributes with the current user ID.
+				// By default, BlameableBehavior will fill the created_by and updated_by attributes with the current user ID when the associated AR object is being inserted;
+				// it will fill the adminid with current admin ID when the associated AR object is being inserted;
 				'class' => BlameableBehavior::className(),
 				'createdByAttribute' => 'adminid',
 				'updatedByAttribute' => null,
@@ -51,7 +49,7 @@ class Category extends ActiveRecord
 	public function add($data)
 	{
 		$data['Category']['createtime'] = time();
-		// $data['Category']['adminid'] = Yii::$app->admin->id;
+		$data['Category']['adminid'] = Yii::$app->admin->id;
 		if ($this->load($data) && $this->save()) {
 			return true;
 		}
@@ -72,6 +70,7 @@ class Category extends ActiveRecord
 			if ($cate['parentid'] == $pid) {
 				$tree[] = $cate;
 				$tree = array_merge($tree, $this->getTree($cates, $cate['cateid']));
+				// 把两个数组合并为一个数组
 			}
 		}
 		return $tree;
@@ -83,6 +82,7 @@ class Category extends ActiveRecord
 		$num = 1;
 		$prefix = [0 => 1];
 		while($val = current($data)) {
+			// current() 函数返回数组中的当前元素的值。
 			$key = key($data);
 			if ($key > 0) {
 				if ($data[$key - 1]['parentid'] != $val['parentid']) {
@@ -93,9 +93,11 @@ class Category extends ActiveRecord
 				$num = $prefix[$val['parentid']];
 			}
 			$val['title'] = str_repeat($p, $num).$val['title'];
+			// str_repeat() 函数把字符串重复指定的次数。
 			$prefix[$val['parentid']] = $num;
 			$tree[] = $val;
 			next($data);
+			// next() - 将内部指针指向数组中的下一个元素，并输出
 		}
 		return $tree;
 	}
@@ -106,22 +108,16 @@ class Category extends ActiveRecord
 		$tree = $this->getTree($data);
 		$tree = $this->setPrefix($tree);
 		$options = ['添加顶级分类'];
-		foreach($tree as $cate) {
+		foreach ($tree as $cate) {
 			$options[$cate['cateid']] = $cate['title'];
 		}
 		return $options;
 	}
 
-	public function getTreeList()
-	{
-		$data = $this->getData();
-		$tree = $this->getTree($data);
-		return $tree = $this->setPrefix($tree);
-	}
-
 	public static function getMenu()
 	{
-		$top = self::find()->where('parentid = :pid', [":pid" => 0])
+		$top = self::find()
+		->where('parentid = :pid', [":pid" => 0])
 		->limit(11)
 		->orderby('createtime asc')
 		->asArray()
@@ -133,13 +129,13 @@ class Category extends ActiveRecord
 			->limit(10)
 			->asArray()
 			->all();
-			$data[$k] = $cate;
 		}
 		return $data;
 	}
 
 	/**
-	 * getChild 递归查询所有子类数据
+     * getChild 递归查询所有子类数据
+	 *
 	 */
 	public function getChild($pid)
 	{
@@ -156,34 +152,35 @@ class Category extends ActiveRecord
 			];
 		}
 		return $children;
-	}
+	} 
 
 	/**
-	 * 查询所有的顶级分类
-	 */
-	public function getPrimaryCate()
-	{
-		//use parameter binding to bind dynamic parameter values
-		$data = self::find()->where("parentid = :pid", [":pid" => 0]);
-		if (empty($data)) {
-			return [];
-		}
-		$pages = new \yii\data\Pagination(['totalCount' => $data->count(), 'pageSize' => '10']);
-		$data = $data->orderBy('createtime desc')
-		->offset($pages->offset)
-		->limit($pages->limit)
-		->all();
-		if (empty($data)) {
-			return [];
-		}
-		$primary = [];
-		foreach ($data as $cate) {
-			$primary[] = [
-				'id' => $cate->cateid,
-				'text' => $cate->title,
-				'children' => $this->getChild($cate->cateid)
-			];
-		}
-		return ['data' => $primary, 'pages' => $pages];
-	}
+     * 查询所有的顶级分类
+     *
+     */
+    public function getPrimaryCate()
+    {
+    	$data = self::find()->where("parentid = :pid", [":pid" => 0]);
+    	if (empty($data)) {
+    		return [];
+    	}
+    	$pages = new \yii\data\Pagination(['totalCount' => $data->count(), 'pageSize' => '10']);
+    	$data = $data->orderBy('createtime desc')
+    	->offset($pages->offset)
+    	->limit($pages->limit)
+    	->all();
+
+    	if (empty($data)) {
+    		return [];
+    	}
+    	$primary = [];
+    	foreach ($data as $cate) {
+    		$primary[] = [
+    			'id' => $cate->cateid,
+    			'text' => $cate->title,
+    			'children' => $this->getChild($cate->cateid)
+    		];
+    	}
+    	return ['data' => $primary, 'pages' => $pages];
+    }
 }

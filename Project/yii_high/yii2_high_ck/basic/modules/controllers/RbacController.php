@@ -34,8 +34,10 @@ class RbacController extends CommonController
 	public function actionRoles()
 	{
 		$auth = Yii::$app->authManager;
+		// ActiveDataProvider implements a data provider based on yii\db\Query and yii\db\ActiveQuery.
+		// ActiveDataProvider provides data by performing DB queries using $query.
 		$data = new ActiveDataProvider([
-			'query' => (new Query)->from($auth->itemTable)->where('type = 1')->orderBy('created_at desc'),
+			'query' => (new Query)->from($auth->itemTable)->where('type = 1')->orderBy('create_at desc'),
 			'pagination' => ['pageSize' => 5],
 		]);
 		return $this->render('_items', ['dataProvider' => $data]);
@@ -44,13 +46,14 @@ class RbacController extends CommonController
 	public function actionAssignitem($name)
 	{
 		$name = htmlspecialchars($name);
+		// 把预定义的字符 "<" （小于）和 ">" （大于）转换为 HTML 实体：
 		$auth = Yii::$app->authManager;
 		$parent = $auth->getRole($name);
 
 		if (Yii::$app->request->isPost) {
 			$post = Yii::$app->request->post();
 			if (Rbac::addChild($post['children'], $name)) {
-				Yii::$app->session->setFlash('info', '分配成功');
+				Yii::$app->session->setFalsh('info', '分配成功');
 			}
 		}
 
@@ -74,9 +77,13 @@ class RbacController extends CommonController
 			}
 			$rule = new $className;
 			if (Yii::$app->authManager->add($rule)) {
-				Yii::$app->session->setFlash('info', '添加成功');
+				Yii::$app->session->setFalsh('info', '添加成功');
 			}
 		}
 		return $this->render("_createrule");
 	}
+
+	
+
+
 }

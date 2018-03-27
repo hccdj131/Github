@@ -124,7 +124,15 @@ $config = [
                 [
                     'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
+                    'logFile' => '@app/runtime/logs/shop/application.log',
                 ],
+                [
+                    'class' => 'yii\log\FileTarget',
+                    'levels' => ['info', 'trace'],
+                    'logFile' => '@app/runtime/logs/shop/info.log',
+                    'categories' => ['myinfo'],
+                    'logVars' => [],
+                ]
             ],
         ],
         'db' => $db,

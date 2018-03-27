@@ -20,6 +20,7 @@ class CommonController extends Controller
     {
         return [
             'access' => [
+                
                 'class' => \yii\filters\AccessControl::className(),
                 'only' => $this->actions,
                 'except' => $this->except,
